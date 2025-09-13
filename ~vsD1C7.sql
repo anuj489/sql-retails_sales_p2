@@ -147,4 +147,26 @@ sum(total_sale) as total_sales,
   group by customer_id
  )
  select * from ranked_sales
+
  where rn <= 5;
+
+ --Write a SQL query to find the number of unique customers who purchased items from each category.:
+ select category , count(distinct customer_id) as count_unique
+  from retails_sales
+  group by category
+
+
+  --Write a SQL query to create each shift and number 
+  --of orders (Example Morning <12, Afternoon Between 12 & 17, Evening >17):
+
+  with hourly_sales as(
+    select *,
+	case
+	     when Datepart(HOUR,sale_time)< 12 then 'Morning'
+		 when Datepart(HOUR,sale_time) between 12 and 17 then 'Afternoon'
+		 else 'Evening'
+		end as shift
+		from retails_sales
+  
+  
+  )
